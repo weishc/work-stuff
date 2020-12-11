@@ -1,7 +1,6 @@
 import xml.dom.minidom as xmldom
 import os
 
-
 stmatFile = hou.ui.selectFile(title="Select SpeedTree File", file_type=hou.fileType.Any, pattern = "*.stmat")
 stmatFile = os.path.realpath(stmatFile)
 stmatPath = os.path.dirname(stmatFile).replace("\\", "/") + "/"
