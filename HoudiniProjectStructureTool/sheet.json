@@ -1,0 +1,141 @@
+{
+    "version": "1.0", 
+    "encoding": "UTF-8", 
+    "feed": {
+        "xmlns": "http://www.w3.org/2005/Atom", 
+        "xmlns$openSearch": "http://a9.com/-/spec/opensearchrss/1.0/", 
+        "xmlns$gsx": "http://schemas.google.com/spreadsheets/2006/extended", 
+        "id": {
+            "$t": "https://spreadsheets.google.com/feeds/list/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/1/public/full"
+        }, 
+        "updated": {
+            "$t": "2020-12-20T03:30:36.572Z"
+        }, 
+        "category": [
+            {
+                "scheme": "http://schemas.google.com/spreadsheets/2006", 
+                "term": "http://schemas.google.com/spreadsheets/2006#list"
+            }
+        ], 
+        "title": {
+            "type": "text", 
+            "$t": "proj_list"
+        }, 
+        "link": [
+            {
+                "rel": "alternate", 
+                "type": "application/atom+xml", 
+                "href": "https://docs.google.com/spreadsheets/u/0/d/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/pubhtml"
+            }, 
+            {
+                "rel": "http://schemas.google.com/g/2005#feed", 
+                "type": "application/atom+xml", 
+                "href": "https://spreadsheets.google.com/feeds/list/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/1/public/full"
+            }, 
+            {
+                "rel": "http://schemas.google.com/g/2005#post", 
+                "type": "application/atom+xml", 
+                "href": "https://spreadsheets.google.com/feeds/list/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/1/public/full"
+            }, 
+            {
+                "rel": "self", 
+                "type": "application/atom+xml", 
+                "href": "https://spreadsheets.google.com/feeds/list/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/1/public/full?alt=json"
+            }
+        ], 
+        "author": [
+            {
+                "name": {
+                    "$t": "zonker0000"
+                }, 
+                "email": {
+                    "$t": "zonker0000@gmail.com"
+                }
+            }
+        ], 
+        "openSearch$totalResults": {
+            "$t": "2"
+        }, 
+        "openSearch$startIndex": {
+            "$t": "1"
+        }, 
+        "entry": [
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/1/public/full/cokwr"
+                }, 
+                "updated": {
+                    "$t": "2020-12-20T03:30:36.572Z"
+                }, 
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006", 
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ], 
+                "title": {
+                    "type": "text", 
+                    "$t": "DDTV"
+                }, 
+                "content": {
+                    "type": "text", 
+                    "$t": "rootpath: Z:\\file, fps: 24"
+                }, 
+                "link": [
+                    {
+                        "rel": "self", 
+                        "type": "application/atom+xml", 
+                        "href": "https://spreadsheets.google.com/feeds/list/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/1/public/full/cokwr"
+                    }
+                ], 
+                "gsx$projectname": {
+                    "$t": "DDTV"
+                }, 
+                "gsx$rootpath": {
+                    "$t": "Z:\\file"
+                }, 
+                "gsx$fps": {
+                    "$t": "24"
+                }
+            }, 
+            {
+                "id": {
+                    "$t": "https://spreadsheets.google.com/feeds/list/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/1/public/full/cpzh4"
+                }, 
+                "updated": {
+                    "$t": "2020-12-20T03:30:36.572Z"
+                }, 
+                "category": [
+                    {
+                        "scheme": "http://schemas.google.com/spreadsheets/2006", 
+                        "term": "http://schemas.google.com/spreadsheets/2006#list"
+                    }
+                ], 
+                "title": {
+                    "type": "text", 
+                    "$t": "JOLIN"
+                }, 
+                "content": {
+                    "type": "text", 
+                    "$t": "rootpath: Y:\\prod, fps: 23.976"
+                }, 
+                "link": [
+                    {
+                        "rel": "self", 
+                        "type": "application/atom+xml", 
+                        "href": "https://spreadsheets.google.com/feeds/list/1w8-NzJHNIui1vQngLymwwIYfvjPVjmZbRQ7K_YnYqKA/1/public/full/cpzh4"
+                    }
+                ], 
+                "gsx$projectname": {
+                    "$t": "JOLIN"
+                }, 
+                "gsx$rootpath": {
+                    "$t": "Y:\\prod"
+                }, 
+                "gsx$fps": {
+                    "$t": "23.976"
+                }
+            }
+        ]
+    }
+}
