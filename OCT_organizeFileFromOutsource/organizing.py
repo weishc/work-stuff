@@ -11,6 +11,7 @@ lgtRoot = r'J:\OCT\show\OCT_0810\wx'  # target folder
 
 
 def version_check(newFolder_path):
+    # currentVer_{version}.txt is for recording the version.
     current_ver_file = glob.glob(op.join(newFolder_path, 'currentVer_*.txt'))
     if len(current_ver_file) == 1:
         current_ver_path = current_ver_file[0]
