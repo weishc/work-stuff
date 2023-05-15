@@ -1,4 +1,4 @@
-I put some of my work stuff like pipeline tool or something in here.
+I put some of my work stuff like the pipeline tool and some toys in here.
 
 
 x0z7pchome@gmail.com
