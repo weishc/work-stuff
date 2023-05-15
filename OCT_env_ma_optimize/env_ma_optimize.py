@@ -45,23 +45,28 @@ def camfrustrum(envMa, camabc, fixedEnvMa, coord, startF, endF, loctrl):
         batchcmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
 
 
-for shot in dir_list:
-    ignore = os.path.join(seqpath, shot, 'ignoreme.txt')
-    if os.path.exists(ignore):
-        print(shot+' ignore')
-        continue
-    LGTpath = os.path.join(seqpath, shot, 'lighting')
-    ANIma = os.path.join(LGTpath, 'ready', shot+'_ANI_OK.ma')
-    envfname = os.path.basename(envMa)
-    fixedEnvMa = os.path.join(LGTpath, 'ready', envfname).replace('\\', '/')
-    if os.path.exists(fixedEnvMa):
-        print(shot + ' env already fixed')
-        continue
-    if not os.path.exists(ANIma):
-        print(shot+' missing ani')
-        continue
-    ready = os.path.dirname(ANIma)
-    camabc = os.path.join(ready, 'cam.abc').replace('\\', '/')
-    coord, startF, endF = check_xform_expcam(ANIma, camabc, loctrl)
-    camfrustrum(envMa, camabc, fixedEnvMa, coord, startF, endF, loctrl)
-    print(shot + ' fixing success')
+def main():
+    for shot in dir_list:
+        ignore = os.path.join(seqpath, shot, 'ignoreme.txt')
+        if os.path.exists(ignore):
+            print(shot+' ignore')
+            continue
+        LGTpath = os.path.join(seqpath, shot, 'lighting')
+        ANIma = os.path.join(LGTpath, 'ready', shot+'_ANI_OK.ma')
+        envfname = os.path.basename(envMa)
+        fixedEnvMa = os.path.join(
+            LGTpath, 'ready', envfname).replace('\\', '/')
+        if os.path.exists(fixedEnvMa):
+            print(shot + ' env already fixed')
+            continue
+        if not os.path.exists(ANIma):
+            print(shot+' missing ani')
+            continue
+        ready = os.path.dirname(ANIma)
+        camabc = os.path.join(ready, 'cam.abc').replace('\\', '/')
+        coord, startF, endF = check_xform_expcam(ANIma, camabc, loctrl)
+        camfrustrum(envMa, camabc, fixedEnvMa, coord, startF, endF, loctrl)
+        print(shot + ' fixing success')
+
+
+main()
