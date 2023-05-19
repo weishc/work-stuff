@@ -1,8 +1,7 @@
-Trello comment to Workplace messenge webhook server
+Trello Comment to Workplace Messenger Webhook Server
 
-Feature:Send messenge to Workplace when someone comment on Trello's card.
+Feature: Send a messenger to Workplace when someone comments on a Trello card.
 
-Knowing Issue:
-Workplace Graph API will miss some staff's data via thie method.
-https://developers.facebook.com/docs/workplace/reference/graph-api/member/
-So I export .xlsx of all staff's data form Workplace's dashboard, and use excel2json.
+Known issue: Workplace Graph API will miss some employee's data via thie method.
+https://developers.facebook.com/docs/workplace/reference/graph-api/member/ 
+So I export .xlsx of all employee's data from Workplace's dashboard, and use excel2json.
