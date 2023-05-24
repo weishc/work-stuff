@@ -32,7 +32,7 @@ def index():
 @app.route('/', methods=['POST'])
 def respond():
     req_act = request.json['action']
-    print ('action type: ' + req_act['type'])
+    print('action type: ' + req_act['type'])
     if req_act['type'] == 'commentCard':
         req_text = req_act['data']['text']  # comment content
         card = req_act['data']['card']
@@ -41,7 +41,8 @@ def respond():
         pattern = re.compile(r'@[a-z]+')
         brief = re.sub(pattern, '', req_text)  # remove username
         brief = brief.replace('\n', '').replace(' ', '')
-        if len(brief) > 10 : brief = brief[:10] + r'...'
+        if len(brief) > 10:
+            brief = brief[:10] + r'...'
         # get each card member's trello id
         card_members_id = (get_card_members_id(card['id']))
         if commenter == shot_owner:
@@ -60,7 +61,7 @@ def send_msg(wp_id, brief, commenter):
     req_data = request.json['action']['data']
     shot_name = req_data['card']['name']
     short_link = req_data['card']['shortLink']
-    text = shot_name + r'\n⚠️有來自' + commenter + '的新留言:' + \
+    text = shot_name + r'\n⚠️You got new comment from ' + commenter + \
         brief + r'\nhttps://trello.com/c/' + short_link
     data = '{"recipient":{"id":"' + wp_id + '"},"message":{"text":"' + \
         text + '"}}'
