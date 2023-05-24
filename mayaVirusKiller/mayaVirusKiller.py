@@ -1,7 +1,7 @@
 import os
 
 
-def main(fpath):
+def killing_virus(fpath):
     word = 'createNode script -n'
     del_list = []
     with open(fpath, 'r') as fp:
@@ -27,14 +27,14 @@ def fix_ma_with_subfolder(path):
         for i in f:
             if i[-3:] == '.ma':
                 fpath = os.path.join(r, i)
-                main(fpath)
+                killing_virus(fpath)
 
 
 def fix_ma(path):
     for i in os.listdir(path):
         if i[-3:] == '.ma':
             fpath = os.path.join(path, i)
-            main(fpath)
+            killing_virus(fpath)
 
 
 path = r'I:\MXA\test'
