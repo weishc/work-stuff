@@ -2,7 +2,7 @@ import os
 import subprocess
 
 
-mayabatch = r'"C:\Program Files\Autodesk\Maya2018\bin\mayabatch.exe" -noAutoloadPlugins -file '
+mayabatch = r'"C:\Program Files\Autodesk\Maya2018\bin\mayabatch.exe" -noAutoloadPlugins -file'
 envMa = r'D:\\BarHeadedGooseHimalayas.BDL.ma'
 loctrl = 'BarHeadedGooseHimalayas:loc_ctrl'
 seqpath = r'J:\OCT\show\OCT_0815'
@@ -54,7 +54,7 @@ def main():
     for shot in dir_list:
         ignore = os.path.join(seqpath, shot, 'ignoreme.txt')
         if os.path.exists(ignore):
-            print (shot+' ignore')
+            print(shot+' ignore')
             continue
         LGTpath = os.path.join(seqpath, shot, 'lighting')
         ANIma = os.path.join(LGTpath, 'ready', shot+'_ANI_OK.ma')
@@ -62,16 +62,16 @@ def main():
         fixedEnvMa = os.path.join(
             LGTpath, 'ready', envfname).replace('\\', '/')
         if os.path.exists(fixedEnvMa):
-            print (shot + ' env already fixed')
+            print(shot + ' env already fixed')
             continue
         if not os.path.exists(ANIma):
-            print (shot+' missing ani')
+            print(shot+' missing ani')
             continue
         ready = os.path.dirname(ANIma)
         camabc = os.path.join(ready, 'cam.abc').replace('\\', '/')
         coord, startF, endF = check_xform_expcam(ANIma, camabc, loctrl)
         camfrustrum(envMa, camabc, fixedEnvMa, coord, startF, endF, loctrl)
-        print (shot + ' fixing success')
+        print(shot + ' fixing success')
 
 
 main()
