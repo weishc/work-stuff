@@ -111,7 +111,6 @@ class Ui_Form(object):
         )[0]
 
         if input_fpath:
-            input_dir = QDir(input_fpath)
             self.input_lineEdit.setText(input_fpath)
 
     @Slot()
@@ -123,3 +122,5 @@ class Ui_Form(object):
         if output_path:
             output_dir = QDir(output_path)
             self.output_lineEdit.setText(QDir.fromNativeSeparators(output_dir.path()))
+
+    
