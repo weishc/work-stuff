@@ -1,1 +1,1 @@
-Send the jobs with dependencies to the render farm (CGRU Afanasy).
+Send the jobs with dependencies to the render farm (CGRU Afanasy) in Houdini.
