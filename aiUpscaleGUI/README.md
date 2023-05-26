@@ -8,4 +8,4 @@ Place main.exe in the same folder as Real-ESRGAN then run it.
 
 Demo:
 
-![](demo.gif)
+![](https://i.imgur.com/RgAqSU9.gif)
