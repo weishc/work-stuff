@@ -10,7 +10,7 @@ maPath = op.join(layPath, 'OCT_0810*LAY_v*.ma')
 lgtRoot = r'J:\OCT\show\OCT_0810\wx'  # target folder
 
 
-def version_check(newFolder_path):
+def version_check(newFolder_path, shot_full_ver):
     # currentVer_{version}.txt is for recording the version.
     current_ver_file = glob.glob(op.join(newFolder_path, 'currentVer_*.txt'))
     if len(current_ver_file) == 1:
@@ -33,7 +33,7 @@ def version_check(newFolder_path):
         return True
 
 
-def move():
+def move(maPath):
     for shot_path in glob.glob(maPath):
         shot_fname = op.basename(shot_path)  # OCT_0810_s010_020_LAY_v02.ma
         shot_dir = op.dirname(shot_path)
@@ -44,9 +44,9 @@ def move():
         if op.exists(newFolder_path) == False:
             os.mkdir(newFolder_path)
         shot_ver = shot_fname_split_list[1]
-        shot_ver_2nd_digit = int(shot_ver[2])
-        shot_ver_1st_digit = int(shot_ver[3])
         shot_full_ver = shot_ver[2] + shot_ver[3]
         OK_path = op.join(newFolder_path, 'ready', shot_code+'_LAY_OK.ma')
-        if version_check(newFolder_path) == True:
+        if version_check(newFolder_path, shot_full_ver) == True:
             shutil.copy(shot_path, OK_path)
+
+move(maPath)

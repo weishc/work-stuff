@@ -20,7 +20,8 @@ def create_material(materials):
         matnode = hou.node(
             "/obj/"+filename).createNode("wc_arnold_speedtree_mat")
         matnode.setParms({"use_color_map": 0, "use_opacity_map": 0, "use_normal_map": 0,
-                          "use_gloss_map": 0, "use_specular_map": 0, "use_ssscolor_map": 0, "use_sssamount_map": 0})
+                          "use_gloss_map": 0, "use_specular_map": 0, "use_ssscolor_map": 0,
+                          "use_sssamount_map": 0})
         matnode.setParms({"color_map": "", "opacity": "", "normal_map": "",
                           "gloss_map": "", "specular_map": "", "ssscolor_map": "", "sssamount_map": ""})
         for maptag in mat.getElementsByTagName("Map"):
