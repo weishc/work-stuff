@@ -14,7 +14,9 @@ def check_xform_expcam(ANIma, camabc, loctrl):
     expcam = (
         r'$s = `playbackOptions -q -ast`;$e = `playbackOptions -q -aet`;print StartFrame_;'
         r'print $s;print _EndFrame_;print $e;print \"\n\";'
-        r'$cmd = \"-fr \"+$s+\" \"+$e+\" -ws -ef -df ogawa -rt ^|cgCamera^|globalCtrl^|globalAimPosCtrl^|globalAimPos_bake^|offset^|camAim^|camRenderConst^|camShake^|camRender -file {}\";'
+        r'$cmd = \"-fr \"+$s+\" \"+$e+\" -ws -ef -df ogawa -rt ^|cgCamera^|globalCtrl^'
+        r'|globalAimPosCtrl^|globalAimPos_bake^|offset^|camAim^|camRenderConst^|camShake^'
+        r'|camRender -file {}\";'
         r'loadPlugin AbcExport;AbcExport -j $cmd;'
     ).format(
         camabc)
@@ -41,7 +43,8 @@ def camfrustrum(envMa, camabc, fixedEnvMa, coord, startF, endF, loctrl):
         loctrl=loctrl, x=coord[0], y=coord[1], z=coord[2])
     setfr = r'playbackOptions -ast {sf} -aet {ef} -min {sf} -max {ef};'.format(
         sf=startF, ef=endF)
-    camclip = r'loadPlugin AbcImport;AbcImport -m import \"{}\";python(\"execfile(r\'D:\\\\camfrustum.py\')\");'.format(
+    camclip = r'loadPlugin AbcImport;AbcImport -m import'
+    r' \"{}\";python(\"execfile(r\'D:\\\\camfrustum.py\')\");'.format(
         camabc)
     save = r'cleanUpScene(3);file -rn \"{f}\";file -s;'.format(f=fixedEnvMa)
     batchcmd = mayabatch + \
