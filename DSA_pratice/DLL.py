@@ -2,9 +2,10 @@ class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
+        self.prev = None
         
 
-class LinkedList:
+class DoublyLinkedList:
     def __init__(self, value):
         new_node = Node(value)
         self.head = new_node
@@ -25,78 +26,67 @@ class LinkedList:
         
     def append(self, value):
         new_node = Node(value)
-        if self.length == 0:
+        if not self.head:
             self.head = new_node
             self.tail = new_node
         else:
             self.tail.next = new_node
+            new_node.prev = self.tail
             self.tail = new_node
         self.length += 1
         return True
 
     def pop(self):
-        #two pointer
         if self.length == 0:
             return None
-        pre = self.head
-        temp = self.head
-        while temp.next:
-            pre = temp
-            temp = temp.next
-        self.tail = pre
-        self.tail.next = None
-        self.length -= 1
-        if self.length == 0:
-            self.head = None
-            self.tail = None
-        return temp
-    
-    def pop_alter(self):
-        #single point
-        if self.length == 0:
-            return None
-        pop_node = self.tail
+        temp = self.tail
         if self.length == 1:
-            self.tail = None
             self.head = None
-            self.length -= 1
-            return pop_node
-        temp = self.head
-        while temp.next != self.tail:
-            temp = temp.next
-        temp.next = None
-        self.tail = temp
+            self.tail = None 
+        else:       
+            self.tail = self.tail.prev
+            self.tail.next = None
+            temp.prev = None
         self.length -= 1
-        return pop_node
+        return temp
     
     def prepend(self, value):
         new_node = Node(value)
         self.length += 1
-        if self.head == None:
+        if not self.head:
             self.head = new_node
             self.tail = new_node
             return True
         new_node.next = self.head
+        self.head.prev = new_node
         self.head = new_node
         return True
     
     def pop_first(self):
         if self.length == 0:
             return None
-        pop_node = self.head
-        self.head = self.head.next
-        pop_node.next = None
-        self.length -= 1
-        if self.length == 0:
+        temp = self.head
+        if self.length == 1:
+            self.head = None
             self.tail = None
-        return pop_node
+        else:
+            self.head = self.head.next
+            self.head.prev = None
+            temp.next = None      
+        self.length -= 1
+        return temp
     
     def get(self, idx):
         if idx < 0 or idx >= self.length:
             return None
         temp = self.head
-        for _ in range(idx):
-            temp = temp.next
+        if idx < self.length/2:
+            for _ in range(idx):
+                temp = temp.next
+        else:
+            temp = self.tail
+            for _ in range(self.length - 1, idx, -1):
+                temp = temp.prev  
         return temp
     
     def set_value(self, idx, value):
@@ -114,10 +104,13 @@ class LinkedList:
         if idx == self.length:
             return self.append(value)
         new_node = Node(value)
-        temp = self.get(idx - 1)
-        new_node.next = temp.next
-        temp.next = new_node
-        self.length += 1
+        before = self.get(idx - 1)
+        after = before.next
+        new_node.prev = before
+        new_node.next = after
+        before.next = new_node
+        after.prev = new_node
+        self.length += 1   
         return True
     
     def remove(self, idx):
@@ -127,21 +120,11 @@ class LinkedList:
             return self.pop_first()
         if idx == self.length - 1:
             return self.pop()
-        pre = self.get(idx - 1)
-        temp = pre.next
-        pre.next = temp.next
+        temp = self.get(idx - 1)
+        temp.next.prev = temp.prev
+        temp.prev.next = temp.next
         temp.next = None
+        temp.prev = None
         self.length -= 1
         return temp
     
-    def reverse(self):
-        temp = self.head
-        self.head = self.tail
-        self.tail = temp
-        before = None
-        after = temp.next
-        for _ in range(self.length):
-            after = temp.next
-            temp.next = before
-            before = temp
-            temp = after
