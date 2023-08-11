@@ -1220,10 +1220,7 @@ class WeiPlayblastUi(QtWidgets.QDialog):
     def toggle_output_log(self, state):
         self.output_edit.setVisible(state == 2)
         if state == 0:
-            if sys.version_info.major < 3:
-                QApplication.processEvents()
-            else:
-                QtWidgets.QApplication.processEvents()
+            QtWidgets.QApplication.processEvents()
 
             self.resize(self.size().width(), self.minimumSizeHint().height())
 
