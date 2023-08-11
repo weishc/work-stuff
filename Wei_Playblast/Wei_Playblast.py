@@ -141,7 +141,7 @@ class WeiPlayblast(QtCore.QObject):
         usr_env = os.getenv("PATH")
         in_sys = [i for i in sys_env.split(";") if "ffmpeg" in i]
         in_usr = [i for i in usr_env.split(";") if "ffmpeg" in i]
-
+        
         if ffmpeg_path:
             self._ffmpeg_path = ffmpeg_path
         elif len(in_usr) > 0:
@@ -665,21 +665,21 @@ class WeiPlayblast(QtCore.QObject):
         if self._log_to_maya:
             om.MGlobal.displayError("[WeiPlayblast] {0}".format(text))
 
-        self.output_logged.emit("[ERROR] {0}".format(text))  # pylint: disable=E1101
+        self.output_logged.emit("[ERROR] {0}".format(text))
         self.output_error_warning.emit(["ERROR",text])
-
+        
     def log_warning(self, text):
         if self._log_to_maya:
             om.MGlobal.displayWarning("[WeiPlayblast] {0}".format(text))
 
-        self.output_logged.emit("[WARNING] {0}".format(text))  # pylint: disable=E1101
+        self.output_logged.emit("[WARNING] {0}".format(text))
         self.output_error_warning.emit(["WARNING",text])
-
+        
     def log_output(self, text):
         if self._log_to_maya:
             om.MGlobal.displayInfo(text)
 
-        self.output_logged.emit(text)  # pylint: disable=E1101
+        self.output_logged.emit(text)
 
 
 class WeiPlayblastConfigDialog(QtWidgets.QDialog):
@@ -1065,10 +1065,10 @@ class WeiPlayblastUi(QtWidgets.QDialog):
 
         self.viewer_cb = QtWidgets.QCheckBox("Show in viewer")
         self.viewer_cb.setChecked(True)
-
+        
         self.sound_cb = QtWidgets.QCheckBox("Sound")
         self.sound_cb.setChecked(True)
-
+        
         size_policy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         self.output_edit = QtWidgets.QPlainTextEdit()
         self.output_edit.setReadOnly(True)
@@ -1080,7 +1080,7 @@ class WeiPlayblastUi(QtWidgets.QDialog):
         self.clear_btn = QtWidgets.QPushButton("Clear")
         self.playblast_btn = QtWidgets.QPushButton("Playblast")
         self.close_btn = QtWidgets.QPushButton("Close")
-
+        
 
     def create_layout(self):
         output_path_layout = QtWidgets.QHBoxLayout()
@@ -1131,14 +1131,14 @@ class WeiPlayblastUi(QtWidgets.QDialog):
         visibility_layout.setSpacing(4)
         visibility_layout.addWidget(self.visibility_cmb)
         visibility_layout.addWidget(self.visibility_customize_btn)
-
+        
         miscellaneous_layout = QtWidgets.QHBoxLayout()
         miscellaneous_layout.setSpacing(4)
         miscellaneous_layout.addWidget(self.overscan_cb)
         miscellaneous_layout.addWidget(self.ornaments_cb)
         miscellaneous_layout.addWidget(self.viewer_cb)
         miscellaneous_layout.addWidget(self.sound_cb)
-
+        
         options_layout = QtWidgets.QFormLayout()
         options_layout.addRow("Camera:", camera_options_layout)
         options_layout.addRow("Resolution:", resolution_layout)
@@ -1187,7 +1187,7 @@ class WeiPlayblastUi(QtWidgets.QDialog):
 
         self.visibility_cmb.currentTextChanged.connect(self.on_visibility_preset_changed)
         self.visibility_customize_btn.clicked.connect(self.show_visibility_dialog)
-
+        
         self.toggle_output_log_cb.stateChanged.connect(self.toggle_output_log)
 
         self.refresh_btn.clicked.connect(self.refresh)
@@ -1195,7 +1195,7 @@ class WeiPlayblastUi(QtWidgets.QDialog):
         self.playblast_btn.clicked.connect(self.do_playblast)
         self.close_btn.clicked.connect(self.close)
 
-        self._playblast.output_logged.connect(self.append_output)  # pylint: disable=E1101
+        self._playblast.output_logged.connect(self.append_output)
         self._playblast.output_error_warning.connect(self.show_error_warning_dialog)
 
     def do_playblast(self):
@@ -1216,14 +1216,14 @@ class WeiPlayblastUi(QtWidgets.QDialog):
         overwrite = self.force_overwrite_cb.isChecked()
 
         self._playblast.execute(output_dir_path, filename, padding, overscan, show_ornaments, show_in_viewer,sound, overwrite)
-
+        
     def toggle_output_log(self, state):
         self.output_edit.setVisible(state == 2)
         if state == 0:
             QtWidgets.QApplication.processEvents()
-
+                
             self.resize(self.size().width(), self.minimumSizeHint().height())
-
+        
     def select_output_directory(self):
         current_dir_path = self.output_dir_path_le.text()
         if not current_dir_path:
@@ -1251,6 +1251,7 @@ class WeiPlayblastUi(QtWidgets.QDialog):
             QtGui.QDesktopServices.openUrl(output_dir_path)
         else:
             self.append_output("[ERROR] Invalid directory path: {0}".format(output_dir_path))
+            self.show_error_warning_dialog(["ERROR","Invalid directory path: {0}".format(output_dir_path)])
 
     def refresh(self):
         self.refresh_cameras()
@@ -1351,7 +1352,7 @@ class WeiPlayblastUi(QtWidgets.QDialog):
                 self._encoder_settings_dialog.set_h264_settings(h264_settings["quality"], h264_settings["preset"])
             else:
                 self.append_output("[ERROR] Settings page not found for encoder: {0}".format(encoder))
-
+                self.show_error_warning_dialog(["ERROR","Settings page not found for encoder: {0}".format(encoder)])
         self._encoder_settings_dialog.show()
 
     def on_encoder_settings_dialog_modified(self):
@@ -1365,7 +1366,7 @@ class WeiPlayblastUi(QtWidgets.QDialog):
                 self._playblast.set_h264_settings(h264_settings["quality"], h264_settings["preset"])
             else:
                 self.append_output("[ERROR] Failed to set encoder settings. Unknown encoder: {0}".format(encoder))
-
+                self.show_error_warning_dialog(["ERROR","Failed to set encoder settings. Unknown encoder: {0}".format(encoder)])
     def on_visibility_preset_changed(self):
         visibility_preset = self.visibility_cmb.currentText()
         if visibility_preset != "Custom":
@@ -1527,7 +1528,7 @@ class WeiPlayblastUi(QtWidgets.QDialog):
             QtWidgets.QMessageBox().critical(self, "Error", text)
         else:
             QtWidgets.QMessageBox().warning(self, "Warning", text)
-
+    
     def append_output(self, text):
         self.output_edit.appendPlainText(text)
 
@@ -1544,10 +1545,14 @@ if __name__ == "__main__":
 
 
     try:
-        wei_playblast_dialog.close()  # pylint: disable=E0601
+        wei_playblast_dialog.close()
         wei_playblast_dialog.deleteLater()
     except:
         pass
 
     wei_playblast_dialog = WeiPlayblastUi()
     wei_playblast_dialog.show()
+
+
+
+
