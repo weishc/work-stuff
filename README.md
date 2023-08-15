@@ -1,4 +1,4 @@
-I put some pipeline tools I made here.
+I put some pipeline tools I made and Python relative stuff in here.
 
 [Linkedin](https://www.linkedin.com/in/weihsiangchen-fx/)
 
