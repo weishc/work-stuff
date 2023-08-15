@@ -1,6 +1,5 @@
 import os
 import sys
-import traceback
 import subprocess
 
 from PySide2 import QtCore
@@ -11,8 +10,6 @@ from PySide2.QtCore import QFile, QIODevice, QCoreApplication
 from shiboken2 import wrapInstance
 
 import maya.cmds as cmds
-import maya.mel as mel
-import maya.OpenMaya as om
 import maya.OpenMayaUI as omui
 
 
@@ -51,10 +48,11 @@ class WeiFilePathEditor(QtCore.QObject):
 
     def set_file_node_img_path(self, fnode, new_img_path):
         cmds.setAttr("{0}.fileTextureName".format(fnode), new_img_path, type="string")
-        self.log_info("Successfully set all selected textures to the target directory path")
+        self.log_info(
+            "Successfully set all selected textures to the target directory path"
+        )
 
-        
-    def set_file_node_filter_type(self,fnode, option):
+    def set_file_node_filter_type(self, fnode, option):
         cmds.setAttr("{0}.filterType".format(fnode), option)
         self.log_info("Successfully set filter type for all selected textures")
 
@@ -97,7 +95,7 @@ class WeiFilePathEditor(QtCore.QObject):
                 progress = float(bytes_copied) / float(total_size) * 100
                 progress_dialog.progress_bar.setValue(progress)
 
-                QApplication.processEvents()
+                QCoreApplication.processEvents()
 
             if not copy:
                 source_file.remove()
@@ -280,7 +278,7 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
         self.filter_type_cmb.addItems(WeiFilePathEditorUi.FILTER_TYPE_LIST)
         self.filter_type_cmb.setCurrentText("Mipmap")
         self.set_filter_type_btn = QtWidgets.QPushButton("Set Filter Type")
-        
+
         self.original_format_cmb = QtWidgets.QComboBox()
         self.original_format_cmb.addItem("*")
         self.original_format_cmb.addItems(WeiFilePathEditorUi.IMGCVT_SUPPORT_FORMAT)
@@ -288,9 +286,13 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
         self.convert_format_cmb = QtWidgets.QComboBox()
         self.convert_format_cmb.addItems(WeiFilePathEditorUi.IMGCVT_SUPPORT_FORMAT)
         self.convert_format_label = QtWidgets.QLabel("To")
-        self.update_texture_path_cb = QtWidgets.QCheckBox("Update texture path in file nodes")
+        self.update_texture_path_cb = QtWidgets.QCheckBox(
+            "Update texture path in file nodes"
+        )
         self.update_texture_path_cb.setChecked(True)
-        self.delete_original_format_textures_cb = QtWidgets.QCheckBox("Delete original format textures")
+        self.delete_original_format_textures_cb = QtWidgets.QCheckBox(
+            "Delete original format textures"
+        )
         self.convert_format_btn = QtWidgets.QPushButton("Convert")
 
         self.main_tab.addTab(self.texture_tab, "Texture")
@@ -315,8 +317,8 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
         target_dir_layout.addWidget(self.force_overwrite_cb)
         target_dir_layout.addRow("Target Directory:", target_path_layout)
         target_dir_layout.addRow("Folder Name:", make_new_folder_layout)
-        
-        target_dir_grp = QtWidgets.QGroupBox('Target directory setting')
+
+        target_dir_grp = QtWidgets.QGroupBox("Target directory setting")
         target_dir_grp.setLayout(target_dir_layout)
 
         add_prefix_layout = QtWidgets.QHBoxLayout()
@@ -331,12 +333,12 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
         replace_string_layout.addWidget(self.replace_string_cb)
         replace_string_layout.addWidget(self.find_string_le)
         replace_string_layout.addWidget(self.replace_string_le)
-        
+
         modify_texture_path_layout = QtWidgets.QVBoxLayout()
         modify_texture_path_layout.addLayout(add_prefix_layout)
         modify_texture_path_layout.addLayout(add_sufix_layout)
         modify_texture_path_layout.addLayout(replace_string_layout)
-        modify_texture_path_grp = QtWidgets.QGroupBox('Modify Texture Path')
+        modify_texture_path_grp = QtWidgets.QGroupBox("Modify Texture Path")
         modify_texture_path_grp.setLayout(modify_texture_path_layout)
 
         button_layout = QtWidgets.QHBoxLayout()
@@ -361,7 +363,7 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
 
         filter_type_grp = QtWidgets.QGroupBox('Filter setup (Maya "file" nodes only')
         filter_type_grp.setLayout(filter_type_layout)
-        
+
         texture_format_conversion_layout = QtWidgets.QHBoxLayout()
         texture_format_conversion_layout.setSpacing(12)
         texture_format_conversion_layout.addWidget(self.original_format_label)
@@ -370,12 +372,16 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
         texture_format_conversion_layout.addWidget(self.convert_format_cmb)
         texture_format_conversion_layout.addWidget(self.convert_format_btn)
         texture_format_conversion_layout.addStretch()
-        
+
         texture_format_conversion_button_layout = QtWidgets.QVBoxLayout()
         texture_format_conversion_button_layout.addWidget(self.update_texture_path_cb)
-        texture_format_conversion_button_layout.addWidget(self.delete_original_format_textures_cb)
-        texture_format_conversion_button_layout.addLayout(texture_format_conversion_layout)
-        
+        texture_format_conversion_button_layout.addWidget(
+            self.delete_original_format_textures_cb
+        )
+        texture_format_conversion_button_layout.addLayout(
+            texture_format_conversion_layout
+        )
+
         texture_format_conversion_grp = QtWidgets.QGroupBox(
             "Texture file format conversion"
         )
@@ -408,7 +414,7 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
         self.copy_files_btn.clicked.connect(self.on_copy_move_files_btn)
         self.move_files_btn.clicked.connect(self.on_copy_move_files_btn)
         self.set_texture_path_btn.clicked.connect(self.on_set_texture_path_btn)
-        
+
         self.set_filter_type_btn.clicked.connect(self.on_set_filter_type_btn)
         self.convert_format_btn.clicked.connect(self.on_convert_format)
 
@@ -480,7 +486,7 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
             new_folder_name = self.name_new_folder_le.text()
             target_dir = os.path.join(target_dir, new_folder_name)
             os.mkdir(target_dir)
-            
+
         file_process_dlg = WeiFilePathEditorFileProcessDialog(self)
         file_process_dlg.show()
         source_fpaths = []
@@ -501,21 +507,23 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
         add_prefix = self.add_prefix_cb.isChecked()
         add_sufix = self.add_sufix_cb.isChecked()
         replace_string = self.replace_string_cb.isChecked()
-        
+
         target_dir = self.get_target_dir()
         exist_node_list, missing_node_list = self.get_selected_treeview_item()
         node_list = exist_node_list + missing_node_list
         for node in node_list:
             old_fpath = self._file_path_editor.get_file_node_img_path(node)
             fname = os.path.basename(old_fpath)
-            
+
             if add_prefix:
                 fname = self.add_prefix_le.text() + fname
             if add_sufix:
                 fname = fname + self.add_sufix_le.text()
             if replace_string:
-                fname = fname.replace(self.find_string_le.text(), self.replace_string_le.text())
-            
+                fname = fname.replace(
+                    self.find_string_le.text(), self.replace_string_le.text()
+                )
+
             new_fpath = os.path.join(target_dir, fname)
             self._file_path_editor.set_file_node_img_path(node, new_fpath)
 
@@ -570,23 +578,23 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
     def toggle_replace_string_cb(self, state):
         self.find_string_le.setEnabled(state == 2)
         self.replace_string_le.setEnabled(state == 2)
-        
+
     def on_set_filter_type_btn(self):
         exist_node_list, missing_node_list = self.get_selected_treeview_item()
         node_list = exist_node_list + missing_node_list
         option = self.filter_type_cmb.currentIndex()
         for node in node_list:
             self._file_path_editor.set_file_node_filter_type(node, option)
-            
+
     def on_convert_format(self):
         exist_node_list, _ = self.get_selected_treeview_item()
         imgcvt = os.path.join(os.getcwd(), "bin", "imgcvt.exe")
-        
+
         update_to_fnode = self.update_texture_path_cb.isChecked()
         delete_original = self.delete_original_format_textures_cb.isChecked()
         original_format = self.original_format_cmb.currentText()
         convert_format = self.convert_format_cmb.currentText()
-        
+
         for node in exist_node_list:
             fpath = self._file_path_editor.get_file_node_img_path(node)
             fname_with_ext = os.path.basename(fpath)
@@ -596,19 +604,24 @@ class WeiFilePathEditorUi(QtWidgets.QDialog):
             cmd = [imgcvt, fpath, output_fpath]
             if original_format != "*":
                 cmd[1:1] = ["-f", original_format[1:]]
-            process = subprocess.Popen(cmd,
-               stdin=subprocess.PIPE,
-               stdout=subprocess.PIPE,
-               stderr=subprocess.PIPE,
-               shell=True)
+            process = subprocess.Popen(
+                cmd,
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                shell=True,
+            )
             finished = process.wait()
             if os.path.isfile(output_fpath):
-                self._file_path_editor.log_info('Conversion sucess.')
-                if delete_original:os.remove(fpath)
+                self._file_path_editor.log_info("Conversion sucess.")
+                if delete_original:
+                    os.remove(fpath)
                 if update_to_fnode:
                     self._file_path_editor.set_file_node_img_path(node, output_fpath)
             else:
-                self._file_path_editor.log_error('Conversion failed. Check the output log for more information.')
+                self._file_path_editor.log_error(
+                    "Conversion failed. Check the output log for more information."
+                )
 
     def show_about_dialog(self):
         text = "<h2>{0}</h2>".format(WeiFilePathEditorUi.TITLE)
