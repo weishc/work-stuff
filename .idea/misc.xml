@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="Black">
-    <option name="enabledOnReformat" value="true" />
-    <option name="pathToExecutable" value="C:\Users\Weish\AppData\Local\Programs\Python\Python311\Scripts\black.exe" />
-    <option name="sdkUUID" value="aaf19dcc-9a76-4ed3-bea7-cabbb6c94d70" />
-  </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (work-stuff)" project-jdk-type="Python SDK" />
-</project>
