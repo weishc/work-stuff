@@ -1,0 +1,10 @@
+set cut_paste_input [stack 0]
+version 13.0 v2
+push $cut_paste_input
+Keyer {
+ operation "luminance key"
+ name Keyer1
+ selected true
+ xpos -223
+ ypos -115
+}

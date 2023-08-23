@@ -1,0 +1,17 @@
+set cut_paste_input [stack 0]
+version 13.0 v2
+push $cut_paste_input
+push 0
+Merge2 {
+ inputs 2
+ name Merge1
+ selected true
+ xpos -253
+ ypos -91
+}
+ColorCorrect {
+ name ColorCorrect1
+ selected true
+ xpos -253
+ ypos -56
+}
