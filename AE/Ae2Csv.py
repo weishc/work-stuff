@@ -1,7 +1,9 @@
 import os.path as op
 import csv
-import xmltodict
+import sys
 
+sys.path.append(op.join(op.dirname(__file__), "site-packages"))
+import xmltodict
 from PySide2.QtWidgets import (
     QApplication,
     QFileDialog,
