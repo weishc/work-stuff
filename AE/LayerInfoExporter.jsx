@@ -113,10 +113,10 @@ function exportCSV (curComp) {
     ]
     outputFile.open('w');
     outputFile.writeln('"' + firstRow.join('","') + '"');
-
+    var StartAt = curComp.displayStartTime;
     for (var i = 1, l = layers.length; i <= l; i++) {
-        var frameIn = timeToCurrentFormat(layers[i].inPoint,fps)-0;
-        var frameOut = timeToCurrentFormat(layers[i].outPoint,fps)-1;
+        var frameIn = timeToCurrentFormat(layers[i].inPoint + StartAt,fps)-0;
+        var frameOut = timeToCurrentFormat(layers[i].outPoint + StartAt,fps)-1;
         var frameDuration = frameOut - frameIn + 1;
         var chtFrameDuration = framesToTC(frameDuration, fps, dropFrame, true);
         var timeIn = framesToTC(frameIn, fps, dropFrame, false);
