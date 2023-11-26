@@ -103,13 +103,13 @@ function exportCSV (curComp) {
 
     firstRow = [
         "NO",
-        "段落",
+        "shot",
         "time in",
         "time out",
-        "秒數",
+        "second",
         "frame in",
         "frame out",
-        "cut duration",
+        "duration",
     ]
     outputFile.open('w');
     outputFile.writeln('"' + firstRow.join('","') + '"');
